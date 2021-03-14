@@ -60,7 +60,7 @@ class App extends Component {
 
   render() {
     const { hits, isLoading, error } = this.state;
-    const shouldRenderLoadMoreButton = hits.length > 12 && !isLoading;
+    const shouldRenderLoadMoreButton = hits.length >= 12 && !isLoading;
 
     return (
       <>
