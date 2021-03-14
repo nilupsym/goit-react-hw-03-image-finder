@@ -4,6 +4,7 @@ import apiServise from './components/services/apiService';
 import Searchbar from './components/Searchbar/Searchbar';
 import ImageGallery from './components/ImageGallery/ImageGallery';
 import Button from './components/Button/Button';
+import Spinner from './components/Loader/Loader';
 
 class App extends Component {
   state = {
@@ -59,13 +60,14 @@ class App extends Component {
 
   render() {
     const { hits, isLoading, error } = this.state;
-    const shouldRenderLoadMoreButton = hits.length >= 12 && !isLoading;
+    const shouldRenderLoadMoreButton = hits.length > 12 && !isLoading;
 
     return (
       <>
         <Searchbar onSubmit={this.onChangeQuery} />
         <ImageGallery images={hits} />
         {shouldRenderLoadMoreButton && (<Button onClick={this.onLoadMoreButtonClick} />)}
+        {isLoading && (<Spinner />)}
       </>
     );
   }
