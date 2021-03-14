@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import apiServise from './components/services/apiService';
 import Searchbar from './components/Searchbar/Searchbar';
 import ImageGallery from './components/ImageGallery/ImageGallery';
+import Button from './components/Button/Button';
 
 class App extends Component {
   state = {
@@ -20,11 +21,10 @@ class App extends Component {
   }
 
   onChangeQuery = query => {
-    console.log(query);
     this.setState({
-      searchQuery: query,
-      currentPage: 1,
       hits: [],
+      currentPage: 1,
+      searchQuery: query,
       error: null
     });
   }
@@ -47,12 +47,25 @@ class App extends Component {
       .finally(() => this.setState({ isLoading: false }));
   }
 
+  onLoadMoreButtonClick = () => {
+    this.fetchImages();
+    setTimeout(function () {
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: 'smooth',
+      });
+    }, 2000);
+  }
+
   render() {
     const { hits, isLoading, error } = this.state;
+    const shouldRenderLoadMoreButton = hits.length >= 12 && !isLoading;
+
     return (
       <>
         <Searchbar onSubmit={this.onChangeQuery} />
         <ImageGallery images={hits} />
+        {shouldRenderLoadMoreButton && (<Button onClick={this.onLoadMoreButtonClick} />)}
       </>
     );
   }
