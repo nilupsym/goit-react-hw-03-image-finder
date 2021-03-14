@@ -1,8 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import Searchbar from './components/Searchbar/Searchbar';
 
-function App() {
-  return <div className="App"></div>;
+class App extends Component {
+  state = {
+    
+  }
+
+  onChangeQuery = query => {
+    console.log(query);
+  }
+  render() {
+    return (
+      <>
+        <Searchbar onSubmit={this.onChangeQuery}/>
+      </>
+    );
+  }
 }
 
 export default App;
